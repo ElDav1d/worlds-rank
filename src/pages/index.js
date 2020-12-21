@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import styles from '../styles/Home.module.css'
+import SearchInput from '../components/SearchInput/SearchInput';
 
 export default function Home({ countries }) {
   return <Layout>
@@ -8,6 +9,7 @@ export default function Home({ countries }) {
     >
       Found {countries.length} countries
     </div>
+    <SearchInput placeholder="Filter by Name, Region or SubRegion" />
   </Layout>
 }
 
