@@ -1,4 +1,4 @@
-import Layout from '../components/Layout'
+import Layout from '../components/Layout/Layout';
 import styles from '../styles/Home.module.css'
 import SearchInput from '../components/SearchInput/SearchInput';
 
