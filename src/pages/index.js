@@ -18,15 +18,19 @@ export default function Home({ countries }) {
     setKeyword(event.target.value.toLowerCase());
   }
 
-  return <Layout>
-    <div
-      className={styles.counts}
-    >
-      Found {countries.length} countries
-    </div>
-    <SearchInput placeholder="Filter by Name, Region or SubRegion" onChange={onInputChange} />
-    <CountriesTable countries={filteredCountries} />
-  </Layout>
+  return (
+    <Layout>
+      <div className={styles.inputContainer}>
+        <div className={styles.counts}>Found {countries.length} countries</div>
+        <div className={styles.input}>
+          <SearchInput
+            placeholder="Filter by Name, Region or SubRegion"
+            onChange={onInputChange} />
+        </div>
+      </div>
+      <CountriesTable countries={filteredCountries} />
+    </Layout>
+  )
 }
 
 export const getStaticProps = async () => {
