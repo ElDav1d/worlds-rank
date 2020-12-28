@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Layout from '../../components/Layout/Layout';
+import Layout from '../../components/Layout/Layout.tsx';
 import styles from './Country.module.css';
 
 const getCountry = async (id) => {

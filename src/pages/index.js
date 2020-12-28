@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Layout from '../components/Layout/Layout';
+import Layout from '../components/Layout/Layout.tsx';
 import styles from '../styles/Home.module.css'
 import SearchInput from '../components/SearchInput/SearchInput';
 import CountriesTable from '../components/CountriesTable/CountriesTable';
