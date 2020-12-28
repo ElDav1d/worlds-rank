@@ -100,7 +100,9 @@ const Country = ({ country }) => {
 
               <div className={styles.details_panel_borders_container}>
                 {borders.map(({ flag, name }) => (
-                  <div className={styles.details_panel_borders_country}>
+                  <div
+                    className={styles.details_panel_borders_country}
+                    key={name}>
                     <img src={flag} alt={name}></img>
 
                     <div className={styles.details_panel_borders_name}>
@@ -119,7 +121,21 @@ const Country = ({ country }) => {
 
 export default Country;
 
-export const getServerSideProps = async ({ params }) => {
+export const getStaticPaths = async () => {
+  const res = await fetch("https://restcountries.eu/rest/v2/all");
+  const countries = await res.json();
+
+  const paths = countries.map(country => ({
+    params: { id: country.alpha3Code },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export const getStaticProps = async ({ params }) => {
   const country = await getCountry(params.id);
 
   return {
