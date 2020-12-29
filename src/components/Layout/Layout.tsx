@@ -5,9 +5,11 @@ import Link from "next/Link";
 import { Brightness6Rounded } from "@material-ui/icons";
 
 type Props = {
-  children?: ReactNode;
-  title?: string;
+  children: ReactNode;
+  title: string;
 };
+
+type Theme = string;
 
 const Layout = ({ children, title = "World Ranks" }: Props) => {
   const [theme, setTheme] = useState("light");
@@ -29,7 +31,7 @@ const Layout = ({ children, title = "World Ranks" }: Props) => {
     }
   };
 
-  const saveTheme = theme => {
+  const saveTheme = (theme: Theme) => {
     setTheme(theme);
     localStorage.setItem("theme", theme);
     document.documentElement.setAttribute("data-theme", theme);
