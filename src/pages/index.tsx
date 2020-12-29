@@ -1,15 +1,10 @@
 import { useState } from "react";
-import Layout from "../components/Layout/Layout";
+import { GetStaticProps } from "next";
+import { Country } from "../interfaces";
 import styles from "../styles/Home.module.css";
+import Layout from "../components/Layout/Layout";
 import SearchInput from "../components/SearchInput/SearchInput";
 import CountriesTable from "../components/CountriesTable/CountriesTable";
-import { GetStaticProps } from "next";
-
-type Country = {
-  name: string;
-  region: string;
-  subregion: string;
-};
 
 type Props = {
   countries: Country[];
