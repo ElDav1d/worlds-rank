@@ -11,7 +11,7 @@ type Props = {
 
 type Theme = string;
 
-const Layout = ({ children, title = "World Ranks" }: Props) => {
+const Layout = ({ children, title }: Props) => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
