@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { GetStaticProps } from "next";
-import { Country } from "../interfaces";
+import { CountryFromAll } from "../interfaces";
 import styles from "../styles/Home.module.css";
 import Layout from "../components/Layout/Layout";
 import SearchInput from "../components/SearchInput/SearchInput";
 import CountriesTable from "../components/CountriesTable/CountriesTable";
 
 type Props = {
-  countries: Country[];
+  countries: CountryFromAll[];
 };
 
 export default function Home({ countries }: Props) {

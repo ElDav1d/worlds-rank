@@ -3,19 +3,23 @@ import {
   KeyboardArrowDownRounded,
   KeyboardArrowUpRounded,
 } from "@material-ui/icons";
-import { Country } from "../../interfaces";
+import { CountryFromAll } from "../../interfaces";
 import styles from "./CountriesTable.module.css";
 import Link from "next/Link";
 
 type Props = {
-  countries: Country[];
+  countries: CountryFromAll[];
 };
 
 type Value = string;
 
 type Direction = string;
 
-const orderBy = (countries: Country[], value: Value, direction: Direction) => {
+const orderBy = (
+  countries: CountryFromAll[],
+  value: Value,
+  direction: Direction
+) => {
   if (direction === "ascending") {
     return [...countries].sort((a, b) => (a[value] > b[value] ? 1 : -1));
   } else if (direction === "descending") {

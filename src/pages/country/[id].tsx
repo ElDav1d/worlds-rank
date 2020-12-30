@@ -1,8 +1,40 @@
-import { useEffect, useState } from 'react';
-import Layout from '../../components/Layout/Layout';
-import styles from './Country.module.css';
+import { useEffect, useState } from "react";
+import { GetStaticProps, GetStaticPaths } from "next";
+import { CountryFromAll } from "../../interfaces";
+import Layout from "../../components/Layout/Layout";
+import styles from "./Country.module.css";
 
-const getCountry = async (id) => {
+type Id = string;
+
+type Borders = CountryFromAll[];
+
+type Language = {
+  name: string;
+};
+
+type Currency = {
+  name: string;
+};
+
+type CountryFromId = {
+  area: number;
+  borders: string[];
+  capital: string;
+  currencies: Currency[];
+  flag: string;
+  gini: number;
+  languages: Language[];
+  name: string;
+  nativeName: string;
+  population: number;
+  region: string;
+};
+
+type Props = {
+  country: CountryFromId;
+};
+
+const getCountry = async (id: Id) => {
   const res = await fetch(`https://restcountries.eu/rest/v2/alpha/${id}`);
 
   const country = await res.json();
@@ -10,21 +42,19 @@ const getCountry = async (id) => {
   return country;
 };
 
-const Country = ({ country }) => {
+const Country = ({ country }: Props) => {
   const [borders, setBorders] = useState([]);
-
-
   const getBorders = async () => {
-    const borders = await Promise.all(
+    const borders: Borders = await Promise.all(
       country.borders.map(border => getCountry(border))
     );
 
     setBorders(borders);
-  }
+  };
 
   useEffect(() => {
     getBorders();
-  }, [])
+  }, []);
 
   return (
     <Layout title={country.name}>
@@ -50,11 +80,9 @@ const Country = ({ country }) => {
               </div>
             </div>
           </div>
-
         </div>
         <div className={styles.container_right}>
           <div className={styles.details_panel}>
-
             <h4 className={styles.details_panel_heading}>Details</h4>
 
             <div className={styles.details_panel_row}>
@@ -67,14 +95,14 @@ const Country = ({ country }) => {
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Languages</div>
               <div className={styles.details_panel_value}>
-                {country.languages.map(({ name }) => name).join(', ')}
+                {country.languages.map(({ name }) => name).join(", ")}
               </div>
             </div>
 
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Currencies</div>
               <div className={styles.details_panel_value}>
-                {country.currencies.map(({ name }) => name).join(', ')}
+                {country.currencies.map(({ name }) => name).join(", ")}
               </div>
             </div>
 
@@ -85,12 +113,9 @@ const Country = ({ country }) => {
               </div>
             </div>
 
-
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Gini</div>
-              <div className={styles.details_panel_value}>
-                {country.gini} %
-            </div>
+              <div className={styles.details_panel_value}>{country.gini} %</div>
             </div>
 
             <div className={styles.details_panel_borders}>
@@ -102,7 +127,8 @@ const Country = ({ country }) => {
                 {borders.map(({ flag, name }) => (
                   <div
                     className={styles.details_panel_borders_country}
-                    key={name}>
+                    key={name}
+                  >
                     <img src={flag} alt={name}></img>
 
                     <div className={styles.details_panel_borders_name}>
@@ -121,7 +147,7 @@ const Country = ({ country }) => {
 
 export default Country;
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("https://restcountries.eu/rest/v2/all");
   const countries = await res.json();
 
@@ -133,14 +159,20 @@ export const getStaticPaths = async () => {
     paths,
     fallback: false,
   };
-}
+};
 
-export const getStaticProps = async ({ params }) => {
-  const country = await getCountry(params.id);
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const paramsId = params.id;
 
-  return {
-    props: {
-      country
-    },
-  };
-}
+  if (typeof paramsId === "string") {
+    const country = await getCountry(paramsId);
+
+    return {
+      props: {
+        country,
+      },
+    };
+  }
+
+  return;
+};

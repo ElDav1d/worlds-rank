@@ -1,4 +1,4 @@
-export type Country = {
+export type CountryFromAll = {
   alpha3Code: string;
   area: number;
   flag: string;
